@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 센스만점 선물 추천기 (Gift Picker)</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🎁 AI 센스만점 선물 추천기</h1>
+      <p class="subtitle">상대방의 상황과 취향에 맞춘 실시간 리뷰 기반 최적의 선물 추천</p>
+    </header>
+
+    <!-- 입력 폼 영역 -->
+    <main class="card form-card">
+      <form id="giftForm">
+        <div class="form-group">
+          <label for="recipient">1. 받는 사람</label>
+          <input type="text" id="recipient" name="recipient" placeholder="예: 20대 대학생 친구, 자취하는 언니, 알바 사장님" required>
+        </div>
+
+        <div class="form-group">
+          <label for="budget">2. 예산 범위</label>
+          <input type="text" id="budget" name="budget" placeholder="예: 1~2만 원대, 3~5만 원대, 10만 원 이하" required>
+        </div>
+
+        <div class="form-group">
+          <label for="occasion">3. 선물 목적 / 상황</label>
+          <input type="text" id="occasion" name="occasion" placeholder="예: 생일, 집들이, 시험 응원, 퇴사 선물" required>
+        </div>
+
+        <div class="form-group">
+          <label for="interests">4. 상대방 취향 / 특징</label>
+          <input type="text" id="interests" name="interests" placeholder="예: 귀여운 거 좋아함, 디저트 덕후, 실용적인 거 선호" required>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn primary-btn">✨ 센스있는 선물 추천받기</button>
+      </form>
+
+      <!-- 에러 메시지 알림 -->
+      <div id="errorMessage" class="error-banner" style="display: none;"></div>
+    </main>
+
+    <!-- 로딩 스피너 영역 -->
+    <div id="loading" class="loading-container" style="display: none;">
+      <div class="spinner"></div>
+      <p class="loading-text">🔍 실시간 후기를 검색하고 AI가 가장 센스 있는 선물을 고르는 중입니다...</p>
+    </div>
+
+    <!-- 추천 결과 영역 -->
+    <section id="resultContainer" class="result-container" style="display: none;">
+      <div class="result-header">
+        <h2>🎉 AI 추천 결과가 도착했습니다!</h2>
+        <button id="copyAllBtn" class="btn copy-btn">📋 전체 결과 복사</button>
+      </div>
+
+      <!-- 추천 1위 -->
+      <div class="card result-card rank-1">
+        <div class="card-badge">🥇 추천 선물 1위</div>
+        <h3 id="gift1Name" class="gift-title"></h3>
+        <p class="gift-reason"><strong>💡 선정 이유:</strong> <span id="gift1Reason"></span></p>
+        <p class="gift-sense"><strong>✨ 센스 포인트:</strong> <span id="gift1Sense"></span></p>
+        <a id="gift1Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">🛒 최저가 & 구매처 확인하기 ↗</a>
+      </div>
+
+      <!-- 추천 2위 -->
+      <div class="card result-card rank-2">
+        <div class="card-badge">🥈 추천 선물 2위 (대안 아이템)</div>
+        <h3 id="gift2Name" class="gift-title"></h3>
+        <p class="gift-reason"><strong>💡 선정 이유:</strong> <span id="gift2Reason"></span></p>
+        <p class="gift-sense"><strong>✨ 센스 포인트:</strong> <span id="gift2Sense"></span></p>
+        <a id="gift2Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">🛒 최저가 & 구매처 확인하기 ↗</a>
+      </div>
+
+      <!-- 실사용자 후기 요약 -->
+      <div class="card result-card review-card">
+        <div class="card-badge review-badge">📊 실사용자 후기 요약 (Serper 검색 기반)</div>
+        <p id="reviewsSummary" class="review-text"></p>
+      </div>
+
+      <!-- 1초 완성 카드 문구 -->
+      <div class="card result-card message-card">
+        <div class="message-header">
+          <div class="card-badge message-badge">💌 1초 완성 카드 문구</div>
+          <button id="copyMsgBtn" class="btn text-copy-btn">문구 복사</button>
+        </div>
+        <p id="cardMessage" class="message-text"></p>
+      </div>
+
+      <!-- 선물 팁 및 주의사항 -->
+      <div class="card result-card tip-card">
+        <div class="card-badge tip-badge">📌 선물 팁 & 주의사항</div>
+        <p id="tipsContent" class="tip-text"></p>
+      </div>
+    </section>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
