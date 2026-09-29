@@ -186,4 +186,5 @@ def recommend():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    # macOS의 AirPlay(5000번 포트) 충돌을 방지하기 위해 5001번 포트 사용
+    app.run(debug=True, host="127.0.0.1", port=5001)
