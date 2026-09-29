@@ -3,7 +3,7 @@ import os
 import re
 import requests
 from dotenv import load_dotenv
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from google import genai
 
 # .env 환경변수 로드
@@ -52,6 +52,20 @@ def search_serper(query, api_key):
 def index():
     """메인 페이지를 렌더링합니다."""
     return render_template("index.html")
+
+
+@app.route("/manifest.json")
+def manifest():
+    """PWA 매니페스트 파일 제공"""
+    return send_from_directory("static", "manifest.json", mimetype="application/manifest+json")
+
+
+@app.route("/service-worker.js")
+def service_worker():
+    """PWA 서비스 워커 파일 제공 (루트 스코프 설정)"""
+    response = send_from_directory("static", "service-worker.js", mimetype="application/javascript")
+    response.headers["Service-Worker-Allowed"] = "/"
+    return response
 
 
 @app.route("/recommend", methods=["POST"])

@@ -168,4 +168,41 @@ ${tipsContent.textContent}
       alert('전체 복사에 실패했습니다.');
     }
   });
+
+  // ----------------- PWA 기능: 서비스 워커 등록 및 설치 버튼 -----------------
+  const installPwaBtn = document.getElementById('installPwaBtn');
+  let deferredPrompt;
+
+  // 브라우저에서 앱 설치 가능한 경우 설치 버튼 노출
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installPwaBtn) {
+      installPwaBtn.style.display = 'inline-flex';
+    }
+  });
+
+  if (installPwaBtn) {
+    installPwaBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('[PWA] 사용자 응답:', outcome);
+      deferredPrompt = null;
+      installPwaBtn.style.display = 'none';
+    });
+  }
 });
+
+// PWA 서비스 워커 등록
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((reg) => {
+        console.log('[PWA] Service Worker 등록 성공, Scope:', reg.scope);
+      })
+      .catch((err) => {
+        console.warn('[PWA] Service Worker 등록 실패:', err);
+      });
+  });
+}

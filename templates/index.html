@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 센스만점 선물 추천기 (Gift Picker)</title>
+
+  <!-- PWA 매니페스트 및 모바일 메타 태그 -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="선물추천기">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192.png') }}">
+
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -11,6 +20,7 @@
     <header class="header">
       <h1>🎁 AI 센스만점 선물 추천기</h1>
       <p class="subtitle">상대방의 상황과 취향에 맞춘 실시간 리뷰 기반 최적의 선물 추천</p>
+      <button id="installPwaBtn" class="btn install-btn" style="display: none;">📲 앱으로 설치하기</button>
     </header>
 
     <!-- 입력 폼 영역 -->
