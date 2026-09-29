@@ -68,6 +68,25 @@ body {
   transform: translateY(-1px);
 }
 
+.ios-install-guide {
+  margin-top: 14px;
+  padding: 12px 18px;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  color: #3730a3;
+  text-align: center;
+  line-height: 1.55;
+  word-break: keep-all;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.05);
+}
+
+.ios-install-guide strong {
+  color: #1e1b4b;
+  font-weight: 700;
+}
+
 /* ----------------- 공통 카드 스타일 ----------------- */
 .card {
   background: #ffffff;

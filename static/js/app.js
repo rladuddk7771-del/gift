@@ -192,6 +192,15 @@ ${tipsContent.textContent}
       installPwaBtn.style.display = 'none';
     });
   }
+
+  const iosGuide = document.getElementById('iosInstallGuide');
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  const isInStandalone = ('standalone' in window.navigator) && window.navigator.standalone;
+
+  // iOS Safari 환경이면서 아직 홈 화면에 설치되지 않은 경우 친절한 안내 배너 노출
+  if (isIos && !isInStandalone && iosGuide) {
+    iosGuide.style.display = 'block';
+  }
 });
 
 // PWA 서비스 워커 등록
