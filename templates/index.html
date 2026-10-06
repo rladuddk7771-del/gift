@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Gift Curator | 프리미엄 맞춤 선물 큐레이션</title>
+  <title>The Gift Curator | 감성 선물 큐레이션</title>
 
   <!-- PWA 매니페스트 및 모바일 메타 태그 -->
   <link rel="manifest" href="/manifest.json">
@@ -13,109 +13,194 @@
   <meta name="apple-mobile-web-app-title" content="GiftCurator">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192.png') }}">
 
-  <!-- 프리미엄 럭셔리 폰트: Cormorant Garamond & 고운 바탕 -->
+  <!-- 프리미엄 폰트: Cormorant Garamond, 고운 바탕, Pretendard -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=5.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=6.0">
 </head>
 <body>
-  <div class="container">
+  <!-- 상단 글로벌 내비게이션 바 -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">THE GIFT CURATOR</a>
+      <div class="nav-actions">
+        <button id="savedWishlistBtn" class="nav-btn wishlist-btn">
+          <span class="heart-icon">♥</span> 저장한 선물 <span id="savedCountBadge" class="badge">0</span>
+        </button>
+        <button id="installPwaBtn" class="nav-btn install-btn" style="display: none;">앱 설치</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container main-container">
+    <!-- 헤더 히어로 영역 -->
     <header class="header">
-      <span class="brand-tag">GIFT CURATION ARCHIVE</span>
+      <span class="brand-tag">AI GIFT CURATION ARCHIVE</span>
       <h1 class="brand-title">The Gift Curator</h1>
-      <p class="subtitle">상대방의 취향과 맥락을 깊이 고려한 맞춤형 선물 큐레이션</p>
-      <button id="installPwaBtn" class="btn install-btn" style="display: none;">앱으로 설치</button>
+      <p class="subtitle">상대방의 취향과 상황을 고려한 맞춤형 감성 선물 큐레이션</p>
       <div id="iosInstallGuide" class="ios-install-guide" style="display: none;">
         <p>Safari 브라우저 하단의 <strong>[공유]</strong> 메뉴를 누른 후 <strong>[홈 화면에 추가]</strong>를 선택하세요.</p>
       </div>
     </header>
 
-    <!-- 입력 폼 영역 -->
-    <main class="card form-card">
+    <!-- 1. 인터랙티브 입력 폼 영역 (카드 & 필 버튼 방식) -->
+    <main id="formSection" class="card form-container">
       <form id="giftForm">
+        <!-- 1. 받는 대상 -->
         <div class="form-group">
-          <label for="recipient">1. 받는 대상</label>
-          <input type="text" id="recipient" name="recipient" placeholder="예: 20대 대학생 친구, 독립한 지인, 직장 상사" required>
+          <label class="group-title">1. 누구에게 주는 선물인가요?</label>
+          <div class="pill-group" data-input="recipient">
+            <button type="button" class="pill" data-value="친구">친구</button>
+            <button type="button" class="pill" data-value="연인">연인</button>
+            <button type="button" class="pill" data-value="가족">가족</button>
+            <button type="button" class="pill" data-value="동료">동료</button>
+            <button type="button" class="pill" data-value="기타">기타</button>
+          </div>
+          <input type="text" id="recipient" name="recipient" class="detail-input" placeholder="직접 입력 (예: 20대 대학생 친구, 직장 사수, 자취하는 동생)">
         </div>
 
+        <!-- 2. 예산 범위 -->
         <div class="form-group">
-          <label for="budget">2. 예산 범위</label>
-          <input type="text" id="budget" name="budget" placeholder="예: 2~3만 원대, 5만 원 내외, 10만 원 미만" required>
+          <label class="group-title">2. 생각하시는 예산 범위는?</label>
+          <div class="pill-group" data-input="budget">
+            <button type="button" class="pill" data-value="1만원 이하">1만원 이하</button>
+            <button type="button" class="pill" data-value="1~3만원">1~3만원</button>
+            <button type="button" class="pill active" data-value="3~5만원">3~5만원</button>
+            <button type="button" class="pill" data-value="5~10만원">5~10만원</button>
+            <button type="button" class="pill" data-value="10만원 이상">10만원 이상</button>
+          </div>
+          <input type="hidden" id="budget" name="budget" value="3~5만원">
         </div>
 
+        <!-- 3. 선물 목적 -->
         <div class="form-group">
-          <label for="occasion">3. 선물 목적 및 상황</label>
-          <input type="text" id="occasion" name="occasion" placeholder="예: 생일 축하, 집들이, 승진 축하, 가벼운 감사" required>
+          <label class="group-title">3. 어떤 날을 위한 선물인가요?</label>
+          <div class="pill-group" data-input="occasion">
+            <button type="button" class="pill active" data-value="생일">생일</button>
+            <button type="button" class="pill" data-value="기념일">기념일</button>
+            <button type="button" class="pill" data-value="시험 응원">시험 응원</button>
+            <button type="button" class="pill" data-value="감사">감사</button>
+            <button type="button" class="pill" data-value="위로">위로</button>
+            <button type="button" class="pill" data-value="특별한 날">특별한 날</button>
+          </div>
+          <input type="hidden" id="occasion" name="occasion" value="생일">
         </div>
 
+        <!-- 4. 상대방 취향/특징 (다중 선택 가능) -->
         <div class="form-group">
-          <label for="interests">4. 취향 및 라이프스타일</label>
-          <input type="text" id="interests" name="interests" placeholder="예: 미니멀한 인테리어 선호, 실용적인 소품, 커피 애호가" required>
+          <label class="group-title">4. 상대방의 취향이나 라이프스타일은? <span class="help-text">(복수 선택 가능)</span></label>
+          <div class="pill-group multi-select" data-input="interests">
+            <button type="button" class="pill active" data-value="실용적인">실용적인</button>
+            <button type="button" class="pill active" data-value="감성적인">감성적인</button>
+            <button type="button" class="pill" data-value="귀여운">귀여운</button>
+            <button type="button" class="pill" data-value="패션">패션</button>
+            <button type="button" class="pill" data-value="뷰티">뷰티</button>
+            <button type="button" class="pill" data-value="취미">취미</button>
+            <button type="button" class="pill" data-value="먹는 것">먹는 것</button>
+          </div>
+          <input type="text" id="interestsDetail" class="detail-input" placeholder="세부 취향 덧붙이기 (예: 향수/핸드크림 좋아함, 커피 애호가, 미니멀 인테리어)">
+          <input type="hidden" id="interests" name="interests" value="실용적인, 감성적인">
         </div>
 
-        <button type="submit" id="submitBtn" class="btn primary-btn">선물 큐레이션 분석</button>
+        <button type="submit" id="submitBtn" class="btn primary-btn submit-btn">
+          <span>선물 큐레이션 분석</span>
+        </button>
       </form>
 
-      <!-- 에러 메시지 알림 -->
+      <!-- 에러 배너 -->
       <div id="errorMessage" class="error-banner" style="display: none;"></div>
     </main>
 
-    <!-- 로딩 스피너 영역 -->
-    <div id="loading" class="loading-container" style="display: none;">
-      <div class="spinner"></div>
-      <p class="loading-text">취향 데이터와 실사용자 평가를 정밀하게 분석하고 있습니다.</p>
-    </div>
+    <!-- 2. AI 분석 로딩 화면 (2~3초 감성 인터랙션) -->
+    <section id="loadingSection" class="loading-section" style="display: none;">
+      <div class="luxury-loader">
+        <div class="pulse-ring"></div>
+        <div class="pulse-core"></div>
+      </div>
+      <p id="loadingStatusText" class="loading-status-text">당신의 선물 취향을 분석하고 있어요...</p>
+      <div class="loading-progress-bar">
+        <div id="loadingProgressFill" class="progress-fill"></div>
+      </div>
+    </section>
 
-    <!-- 추천 결과 영역 -->
-    <section id="resultContainer" class="result-container" style="display: none;">
-      <div class="result-header">
-        <h2>Curated Selection</h2>
-        <button id="copyAllBtn" class="btn copy-btn">결과 전체 복사</button>
+    <!-- 3. 추천 결과 화면 -->
+    <section id="resultContainer" class="result-section" style="display: none;">
+      <!-- 결과 페이지 상단 헤더 -->
+      <div class="result-top-header">
+        <span class="sub-curator-tag">THE GIFT CURATOR</span>
+        <h2 class="result-headline">"당신을 위해 고른 선물"</h2>
+        <p id="curatorSummary" class="curator-summary"></p>
       </div>
 
-      <!-- 추천 1위 -->
-      <div class="card result-card rank-1">
-        <div class="card-badge">01 / BEST CHOICE</div>
-        <h3 id="gift1Name" class="gift-title"></h3>
-        <p class="gift-reason"><strong>선정 배경</strong> <span id="gift1Reason"></span></p>
-        <p class="gift-sense"><strong>큐레이터 포인트</strong> <span id="gift1Sense"></span></p>
-        <a id="gift1Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">제품 확인 및 최저가 검색</a>
-      </div>
-
-      <!-- 추천 2위 -->
-      <div class="card result-card rank-2">
-        <div class="card-badge">02 / ALTERNATIVE</div>
-        <h3 id="gift2Name" class="gift-title"></h3>
-        <p class="gift-reason"><strong>선정 배경</strong> <span id="gift2Reason"></span></p>
-        <p class="gift-sense"><strong>큐레이터 포인트</strong> <span id="gift2Sense"></span></p>
-        <a id="gift2Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">제품 확인 및 최저가 검색</a>
-      </div>
-
-      <!-- 실사용자 후기 요약 -->
-      <div class="card result-card review-card">
-        <div class="card-badge review-badge">REVIEW ANALYSIS</div>
-        <p id="reviewsSummary" class="review-text"></p>
-      </div>
-
-      <!-- 1초 완성 카드 문구 -->
-      <div class="card result-card message-card">
-        <div class="message-header">
-          <div class="card-badge message-badge">MESSAGE NOTE</div>
-          <button id="copyMsgBtn" class="btn text-copy-btn">문구 복사</button>
+      <!-- 필터 및 제어 툴바 -->
+      <div class="result-toolbar">
+        <div class="result-count-info">
+          <span id="resultCountBadge" class="count-badge">총 3개의 큐레이션</span>
         </div>
-        <p id="cardMessage" class="message-text"></p>
+        <div class="filter-pills">
+          <button type="button" class="filter-pill active" data-filter="all">전체</button>
+          <button type="button" class="filter-pill" data-filter="practical">실용적</button>
+          <button type="button" class="filter-pill" data-filter="emotional">감성적</button>
+          <button type="button" class="filter-pill" data-filter="value">가성비</button>
+        </div>
+        <div class="action-buttons">
+          <button id="modifyConditionBtn" class="tool-btn" title="선택 조건을 수정합니다">조건 수정하기</button>
+          <button id="rerunBtn" class="tool-btn" title="새로운 아이템을 다시 추천받습니다">다시 추천받기</button>
+          <button id="copyAllBtn" class="tool-btn copy-all-btn">결과 전체 복사</button>
+        </div>
       </div>
 
-      <!-- 선물 팁 및 주의사항 -->
-      <div class="card result-card tip-card">
-        <div class="card-badge tip-badge">CURATOR'S GUIDE</div>
-        <p id="tipsContent" class="tip-text"></p>
+      <!-- 3열 상품 카드 그리드 -->
+      <div id="productGrid" class="product-grid">
+        <!-- JS로 동적 렌더링됩니다 -->
+      </div>
+
+      <!-- 부가 큐레이션 모듈 (리뷰, 카드 메시지, 가이드) -->
+      <div class="editorial-modules">
+        <!-- 실사용자 후기 요약 -->
+        <div class="card module-card review-card">
+          <div class="card-badge">REVIEW ANALYSIS</div>
+          <h3 class="module-title">실사용자 평가 & 핵심 반응</h3>
+          <p id="reviewsSummary" class="review-text"></p>
+        </div>
+
+        <!-- 1초 완성 카드 메시지 -->
+        <div class="card module-card message-card">
+          <div class="message-header">
+            <div class="card-badge">MESSAGE NOTE</div>
+            <button id="copyMsgBtn" class="btn text-copy-btn">문구 복사</button>
+          </div>
+          <h3 class="module-title">마음을 전하는 카드 문구</h3>
+          <p id="cardMessage" class="message-text"></p>
+        </div>
+
+        <!-- 큐레이터 전달 가이드 -->
+        <div class="card module-card tip-card">
+          <div class="card-badge">CURATOR'S GUIDE</div>
+          <h3 class="module-title">선물 전달 팁 & 주의사항</h3>
+          <p id="tipsContent" class="tip-text"></p>
+        </div>
       </div>
     </section>
   </div>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}?v=4.0"></script>
+  <!-- 저장한 선물 보관함 (Wishlist Drawer Modal) -->
+  <aside id="wishlistDrawer" class="wishlist-drawer">
+    <div class="drawer-header">
+      <h3>저장한 선물 (<span id="drawerWishlistCount">0</span>)</h3>
+      <button id="closeWishlistBtn" class="close-drawer-btn">✕</button>
+    </div>
+    <div id="wishlistItemsContainer" class="drawer-body">
+      <!-- 저장한 항목 목록 렌더링 -->
+    </div>
+    <div class="drawer-footer">
+      <button id="copyWishlistBtn" class="btn primary-btn submit-btn">위시리스트 목록 복사</button>
+    </div>
+  </aside>
+  <div id="drawerOverlay" class="drawer-overlay"></div>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=6.0"></script>
 </body>
 </html>

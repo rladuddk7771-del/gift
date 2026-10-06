@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import urllib.parse
 import requests
 from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request, send_from_directory
@@ -14,6 +15,17 @@ app = Flask(__name__)
 # 설정된 모델명 (지정 규격: gemini-3.5-flash-lite)
 DEFAULT_MODEL = "gemini-3.5-flash-lite"
 FALLBACK_MODEL = "gemini-2.0-flash"
+
+# 카테고리별 고품질 감성 플레이스홀더 이미지 (절대 깨지지 않는 고화질 Unsplash)
+CATEGORY_IMAGES = {
+    "beauty": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
+    "living": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=800&q=80",
+    "food": "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80",
+    "tech": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    "fashion": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=800&q=80",
+    "relax": "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
+    "general": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80"
+}
 
 
 def search_serper(query, api_key):
@@ -31,7 +43,7 @@ def search_serper(query, api_key):
     }
 
     try:
-        response = requests.post(url, headers=headers, json=payload, timeout=10)
+        response = requests.post(url, headers=headers, json=payload, timeout=8)
         if response.status_code == 200:
             data = response.json()
             organic_results = data.get("organic", [])
@@ -46,6 +58,32 @@ def search_serper(query, api_key):
             return f"검색 결과 조회 실패 (상태 코드: {response.status_code})"
     except Exception as e:
         return f"검색 중 오류 발생: {str(e)}"
+
+
+def search_serper_image(product_name, api_key):
+    """Serper Images API를 통해 실제 상품의 대표 이미지를 검색합니다."""
+    url = "https://google.serper.dev/images"
+    headers = {
+        "X-API-KEY": api_key,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "q": f"{product_name} 제품",
+        "gl": "kr",
+        "hl": "ko",
+        "num": 3
+    }
+    try:
+        res = requests.post(url, headers=headers, json=payload, timeout=6)
+        if res.status_code == 200:
+            images = res.json().get("images", [])
+            for img in images:
+                img_url = img.get("imageUrl", "")
+                if img_url and img_url.startswith("http") and not img_url.endswith(".svg"):
+                    return img_url
+    except Exception:
+        pass
+    return None
 
 
 @app.route("/")
@@ -70,7 +108,7 @@ def service_worker():
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
-    """선물 추천 요청을 처리하는 API 엔드포인트"""
+    """상용 서비스 수준의 3열 그리드 맞춤 선물 큐레이션 API"""
     gemini_api_key = os.getenv("GEMINI_API_KEY")
     serper_api_key = os.getenv("SERPER_API_KEY")
 
@@ -79,31 +117,31 @@ def recommend():
 
     if not serper_api_key or serper_api_key.startswith("여기에_"):
         return jsonify({"error": "SERPER_API_KEY가 .env 파일에 올바르게 설정되지 않았습니다."}), 500
-
     data = request.get_json() or {}
-    recipient = data.get("recipient", "").strip()
-    budget = data.get("budget", "").strip()
-    occasion = data.get("occasion", "").strip()
-    interests = data.get("interests", "").strip()
+    recipient = (data.get("recipient") or data.get("target") or "").strip()
+    budget = (data.get("budget") or "").strip()
+    occasion = (data.get("occasion") or data.get("reason") or "").strip()
+    interests = (data.get("interests") or "").strip()
 
     # 입력값 유효성 검증
     if not recipient or not budget or not occasion or not interests:
         return jsonify({"error": "모든 입력 항목(받는 사람, 예산, 상황, 취향)을 입력해 주세요."}), 400
 
-    # 1. Serper 검색어로 최신 선물 후기 수집
+    # 1. Serper 검색어로 최신 선물 트렌드/후기 수집
     search_query = f"{recipient} {occasion} {budget} {interests} 선물 추천 후기"
     search_snippets = search_serper(search_query, serper_api_key)
 
-    # 2. Gemini 프롬프트 구성
+    # 2. Gemini 프롬프트 구성 (3개 큐레이션 상품 그리드 + 감성 요약)
     system_instruction = (
-        "당신은 센스 넘치는 선물 큐레이터이자 카피라이터입니다. "
-        "사용자의 조건과 검색된 실사용자 후기 정보를 종합하여, 가장 감동적이고 센스 있는 선물 2가지와 카드 문구, 팁을 추천해 주세요. "
-        "반드시 지정된 JSON 형식으로만 응답해야 하며 마크다운 코드블록(```json 등) 없이 순수 JSON 문자열만 출력하세요."
+        "당신은 2030 세대를 위한 하이엔드 라이프스타일 선물 큐레이터이자 수석 카피라이터입니다. "
+        "사용자의 조건(대상, 예산, 상황, 취향)과 실사용자 후기를 종합 분석하여, "
+        "서로 다른 매력을 가진 최고 수준의 센스 만점 선물 3가지를 엄선해 주세요. "
+        "반드시 순수 JSON 문자열만 출력하세요 (마크다운 코드블록 금지)."
     )
 
     prompt = f"""
 [사용자 입력 정보]
-- 받는 사람: {recipient}
+- 받는 대상: {recipient}
 - 예산 범위: {budget}
 - 선물 목적/상황: {occasion}
 - 취향/특징: {interests}
@@ -112,21 +150,38 @@ def recommend():
 {search_snippets}
 
 [출력 요구사항]
-다음 JSON 키 규격을 정확히 지켜 한국어로 응답하세요:
+다음 JSON 규격을 정확히 지켜 한국어로 응답하세요:
 {{
-  "gift1": {{
-    "name": "추천 선물 1위 제품명",
-    "reason": "구체적인 선정 이유",
-    "sense_point": "이 선물이 센스 있는 결정적 포인트"
-  }},
-  "gift2": {{
-    "name": "추천 선물 2위 대안 아이템",
-    "reason": "대안으로 추천하는 이유",
-    "sense_point": "차별화된 센스 포인트"
-  }},
-  "reviews_summary": "Serper 검색 후기를 바탕으로 한 실제 만족도 및 핵심 반응 요약 (2~3문장)",
-  "card_message": "상황과 상대방에게 어울리는 1초 완성 감동 카드 문구",
-  "tips": "선물 전달 팁 및 호불호 방지를 위한 주의사항"
+  "summary": "사용자의 조건에 맞춤 선별한 1~2문장의 세련된 큐레이션 인트로 (예: 20대 친구를 위한 3~5만원대 감성 생일 선물 컬렉션입니다.)",
+  "gifts": [
+    {{
+      "name": "1순위 추천 브랜드 및 구체적 제품명",
+      "price": "예상 가격대 (예: ₩38,000)",
+      "category": "beauty | living | food | tech | fashion | relax | general 중 1개",
+      "reason": "마음을 울리는 한 줄 추천 이유",
+      "sense_point": "이 선물이 센스 있는 결정적 이유 (1문장)",
+      "tags": ["#감성적", "#생일선물", "#20대추천"]
+    }},
+    {{
+      "name": "2순위 대안 추천 브랜드 및 제품명",
+      "price": "예상 가격대 (예: ₩45,000)",
+      "category": "beauty | living | food | tech | fashion | relax | general 중 1개",
+      "reason": "차별화된 매력의 추천 이유",
+      "sense_point": "실용성과 디자인을 모두 잡은 포인트",
+      "tags": ["#실용적", "#인테리어", "#기분전환"]
+    }},
+    {{
+      "name": "3순위 유니크/가성비 추천 브랜드 및 제품명",
+      "price": "예상 가격대 (예: ₩29,000)",
+      "category": "beauty | living | food | tech | fashion | relax | general 중 1개",
+      "reason": "부담 없이 확실한 감동을 주는 추천 이유",
+      "sense_point": "호불호 없이 만족도가 높은 비결",
+      "tags": ["#가성비", "#데일리", "#특별한순간"]
+    }}
+  ],
+  "reviews_summary": "실제 후기 및 만족도 핵심 요약 (2문장)",
+  "card_message": "상황에 꼭 맞는 정성 어린 1초 완성 축하/감사 메시지",
+  "tips": "선물 전달 시 센스를 극대화하는 팁 및 주의사항"
 }}
 """
 
@@ -134,7 +189,6 @@ def recommend():
     try:
         client = genai.Client(api_key=gemini_api_key)
         
-        # 모델 호출 시도 (요구 모델 -> 예외 시 fallback)
         target_model = os.getenv("GEMINI_MODEL", DEFAULT_MODEL)
         try:
             response = client.models.generate_content(
@@ -145,8 +199,7 @@ def recommend():
                     "response_mime_type": "application/json"
                 }
             )
-        except Exception as model_err:
-            # 지정된 모델명이 지원되지 않을 경우 호환 모델로 대체 호출
+        except Exception:
             response = client.models.generate_content(
                 model=FALLBACK_MODEL,
                 contents=prompt,
@@ -158,21 +211,38 @@ def recommend():
 
         response_text = response.text.strip()
 
-        # JSON 파싱 (코드블록 포맷이 섞였을 경우 정리)
         if response_text.startswith("```"):
             response_text = re.sub(r"^```(?:json)?\s*", "", response_text)
             response_text = re.sub(r"\s*```$", "", response_text)
 
         result_json = json.loads(response_text)
+        gifts_list = result_json.get("gifts", [])
 
-        # 각 추천 선물에 최저가/구매처 바로가기 링크(네이버 쇼핑) 자동 추가
-        import urllib.parse
-        g1_name = result_json.get("gift1", {}).get("name", "")
-        g2_name = result_json.get("gift2", {}).get("name", "")
-        if g1_name:
-            result_json["gift1"]["shopping_url"] = f"https://search.shopping.naver.com/search/all?query={urllib.parse.quote(g1_name)}"
-        if g2_name:
-            result_json["gift2"]["shopping_url"] = f"https://search.shopping.naver.com/search/all?query={urllib.parse.quote(g2_name)}"
+        # 각 상품별 이미지 매핑 및 최저가 링크 생성
+        for idx, gift in enumerate(gifts_list):
+            gift["id"] = f"gift-{idx + 1}"
+            g_name = gift.get("name", "")
+            g_cat = gift.get("category", "general")
+
+            # 1순위: Serper 실시간 상품 이미지 검색
+            img_url = search_serper_image(g_name, serper_api_key)
+            if not img_url:
+                # 2순위: 카테고리별 고해상도 Unsplash 감성 이미지 보장
+                img_url = CATEGORY_IMAGES.get(g_cat, CATEGORY_IMAGES["general"])
+
+            gift["image_url"] = img_url
+
+            # 네이버 쇼핑 최저가 검색 링크
+            if g_name:
+                gift["shopping_url"] = f"https://search.shopping.naver.com/search/all?query={urllib.parse.quote(g_name)}"
+            else:
+                gift["shopping_url"] = "https://shopping.naver.com"
+
+        # 이전 하위 호환성을 위한 gift1, gift2 alias 제공
+        if len(gifts_list) > 0:
+            result_json["gift1"] = gifts_list[0]
+        if len(gifts_list) > 1:
+            result_json["gift2"] = gifts_list[1]
 
         return jsonify({"success": True, "data": result_json})
 
