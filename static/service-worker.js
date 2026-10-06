@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gift-picker-v5';
+const CACHE_NAME = 'gift-picker-v6';
 const STATIC_ASSETS = [
   '/',
   '/static/css/style.css',
