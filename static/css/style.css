@@ -1,6 +1,6 @@
 /* ========================================================
-   AI 센스만점 선물 추천기 - 29CM / WARM EDITORIAL THEME
-   감성 셀렉트샵 & 라이프스타일 매거진 콘셉트
+   AI 센스만점 선물 추천기 - QUIET LUXURY & CALM ELEGANT THEME
+   이솝(Aēsop) & 르메르 감성의 차분하고 고급스러운 라이프스타일 큐레이션
    ======================================================== */
 
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -13,33 +13,32 @@
 
 body {
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  background-color: #F8F6F0; /* 29CM 시그니처 웜 크림 페이퍼톤 */
+  background-color: #F6F4EE; /* 차분하고 편안한 오트밀 린넨톤 */
   color: #262320;
   min-height: 100vh;
-  padding: 44px 20px 88px;
-  line-height: 1.7;
+  padding: 52px 20px 96px;
+  line-height: 1.75;
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: 620px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
-/* ----------------- 에디토리얼 헤더 ----------------- */
+/* ----------------- 헤더 영역 (미니멀 럭셔리) ----------------- */
 .header {
   text-align: center;
-  margin-bottom: 36px;
-  position: relative;
+  margin-bottom: 40px;
 }
 
 .header h1 {
-  font-size: 2.1rem;
-  font-weight: 800;
-  color: #171412;
+  font-size: 1.95rem;
+  font-weight: 700;
+  color: #191715;
   letter-spacing: -0.03em;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,68 +46,68 @@ body {
 }
 
 .header .subtitle {
-  font-size: 0.98rem;
-  color: #736B63;
+  font-size: 0.95rem;
+  color: #7A7369;
   font-weight: 400;
   word-break: keep-all;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
-/* PWA 설치 버튼 & iOS 가이드 */
+/* PWA 설치 버튼 & iOS 가이드 (차분한 톤) */
 .install-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 4px;
   padding: 8px 18px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  color: #D95338;
-  background: #FFF;
-  border: 1px solid #E8DCD4;
+  color: #5C4F3D;
+  background: #FFFFFF;
+  border: 1px solid #DCD5C8;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(217, 83, 56, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .install-btn:hover {
-  background: #FDF3F0;
-  border-color: #D95338;
-  transform: translateY(-1px);
+  background: #F8F5EE;
+  border-color: #B39977;
+  color: #2D271E;
 }
 
 .ios-install-guide {
   margin-top: 14px;
   padding: 12px 18px;
-  background: #F2ECE1;
-  border: 1px solid #E2D7C5;
+  background: #ECE8DD;
+  border: 1px solid #DFD9CB;
   border-radius: 12px;
-  font-size: 0.86rem;
-  color: #594D3F;
+  font-size: 0.85rem;
+  color: #544D42;
   text-align: center;
-  line-height: 1.55;
+  line-height: 1.6;
   word-break: keep-all;
 }
 
 .ios-install-guide strong {
-  color: #1F1912;
+  color: #1F1C18;
   font-weight: 700;
 }
 
 /* ----------------- 카드 컴포넌트 ----------------- */
 .card {
   background: #FFFFFF;
-  border-radius: 18px;
+  border-radius: 16px;
   padding: 32px 28px;
-  border: 1px solid #EAE4D8;
-  box-shadow: 0 4px 20px -2px rgba(44, 38, 30, 0.04), 0 1px 4px rgba(44, 38, 30, 0.02);
+  border: 1px solid #E5E0D5;
+  box-shadow: 0 4px 20px -2px rgba(25, 22, 19, 0.03), 0 1px 3px rgba(25, 22, 19, 0.02);
   margin-bottom: 24px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s ease;
 }
 
 .form-card {
-  border-top: 3px solid #D95338; /* 29CM 시그니처 테라코타 포인트 */
+  border-top: 3px solid #332E27; /* 묵직하고 클래식한 딥 차콜 탑 라인 */
 }
 
 /* ----------------- 입력 폼 요소 ----------------- */
@@ -118,9 +117,9 @@ body {
 
 .form-group label {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  color: #2D2721;
+  color: #38332C;
   margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
@@ -128,25 +127,25 @@ body {
 .form-group input {
   width: 100%;
   padding: 14px 16px;
-  font-size: 0.96rem;
+  font-size: 0.95rem;
   font-family: inherit;
-  color: #1A1714;
-  background-color: #F8F6F1;
-  border: 1.5px solid #E5DFD3;
+  color: #191715;
+  background-color: #FAF8F4;
+  border: 1.5px solid #E2DCD0;
   border-radius: 10px;
   outline: none;
   transition: all 0.2s ease;
 }
 
 .form-group input::placeholder {
-  color: #A39B91;
+  color: #A69E93;
   font-size: 0.9rem;
 }
 
 .form-group input:focus {
   background-color: #FFFFFF;
-  border-color: #D95338;
-  box-shadow: 0 0 0 3px rgba(217, 83, 56, 0.12);
+  border-color: #8C7350; /* 은은한 샴페인 브래스 골드 */
+  box-shadow: 0 0 0 3px rgba(140, 115, 80, 0.12);
 }
 
 /* ----------------- 메인 버튼 ----------------- */
@@ -165,20 +164,20 @@ body {
 .primary-btn {
   width: 100%;
   padding: 16px;
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: #FFFFFF;
-  background-color: #D95338; /* 29CM 오렌지 테라코타 */
+  background-color: #24201C; /* 차분하고 묵직한 럭셔리 매트 블랙 */
   border-radius: 12px;
-  box-shadow: 0 6px 18px -2px rgba(217, 83, 56, 0.3);
-  margin-top: 6px;
+  box-shadow: 0 4px 16px rgba(36, 32, 28, 0.2);
+  margin-top: 8px;
   letter-spacing: -0.01em;
 }
 
 .primary-btn:hover {
-  background-color: #C34329;
+  background-color: #38332D;
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px -2px rgba(217, 83, 56, 0.4);
+  box-shadow: 0 6px 20px rgba(36, 32, 28, 0.3);
 }
 
 .primary-btn:active {
@@ -186,7 +185,7 @@ body {
 }
 
 .primary-btn:disabled {
-  background-color: #D1CAC0;
+  background-color: #D3CDC2;
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
@@ -197,28 +196,28 @@ body {
   margin-top: 16px;
   padding: 14px 18px;
   border-radius: 10px;
-  background: #FDF3F1;
-  color: #C53018;
-  font-size: 0.9rem;
+  background: #F7EFEF;
+  color: #8E3A3A;
+  font-size: 0.88rem;
   font-weight: 600;
-  border: 1px solid #F5D2CB;
+  border: 1px solid #EAD4D4;
   text-align: center;
 }
 
-/* ----------------- 로딩 애니메이션 ----------------- */
+/* ----------------- 로딩 스피너 ----------------- */
 .loading-container {
   text-align: center;
-  padding: 52px 20px;
+  padding: 50px 20px;
 }
 
 .spinner {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   margin: 0 auto 18px;
-  border: 3px solid #EBE4D8;
-  border-top: 3px solid #D95338;
+  border: 3px solid #E4DEC5;
+  border-top: 3px solid #8C7350; /* 골드 스피너 */
   border-radius: 50%;
-  animation: spin 0.85s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  animation: spin 0.9s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
 }
 
 @keyframes spin {
@@ -227,18 +226,18 @@ body {
 }
 
 .loading-text {
-  font-size: 0.96rem;
-  color: #5C5247;
+  font-size: 0.94rem;
+  color: #665D52;
   font-weight: 500;
 }
 
 /* ----------------- 결과 영역 헤더 ----------------- */
 .result-container {
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -246,33 +245,34 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 40px 4px 18px;
-  border-bottom: 1.5px solid #EAE3D5;
+  margin: 40px 4px 20px;
+  border-bottom: 1.5px solid #E2DCD1;
   padding-bottom: 14px;
 }
 
 .result-header h2 {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #171412;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #191715;
   letter-spacing: -0.02em;
 }
 
 .copy-btn {
   padding: 8px 14px;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
+  font-weight: 600;
   border-radius: 8px;
-  background: #EDE6D8;
-  color: #4A4035;
-  border: 1px solid #DCD3C1;
+  background: #EDE8DD;
+  color: #4D4539;
+  border: 1px solid #DDD6C7;
 }
 
 .copy-btn:hover {
-  background: #E2DAC9;
-  color: #171412;
+  background: #E3DDD0;
+  color: #191715;
 }
 
-/* ----------------- 추천 카드 스타일 ----------------- */
+/* ----------------- 추천 카드 디테일 ----------------- */
 .result-card {
   position: relative;
 }
@@ -280,109 +280,111 @@ body {
 .card-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   padding: 4px 12px;
   border-radius: 6px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   margin-bottom: 14px;
 }
 
-/* 1위 카드: 29CM 에디토리얼 시그니처 */
+/* 1위 카드: 샴페인 브론즈 골드 포인트 */
 .rank-1 {
-  border-left: 5px solid #D95338;
+  border-left: 4px solid #A68555;
+  background-color: #FFFFFF;
 }
 .rank-1 .card-badge {
-  background-color: #FDF1EE;
-  color: #D95338;
-  border: 1px solid #F5D3CA;
+  background-color: #F8F4EC;
+  color: #7D6136;
+  border: 1px solid #E6D8BE;
 }
 
-/* 2위 카드: 내추럴 세이지 & 차콜 */
+/* 2위 카드: 딥 포레스트 세이지 포인트 */
 .rank-2 {
-  border-left: 5px solid #4F6B56;
+  border-left: 4px solid #4F5E52;
+  background-color: #FFFFFF;
 }
 .rank-2 .card-badge {
-  background-color: #F0F5F1;
-  color: #385540;
-  border: 1px solid #D2E2D5;
+  background-color: #F0F4F1;
+  color: #3B4B3E;
+  border: 1px solid #D3E0D6;
 }
 
 /* 제품명 타이틀 */
 .gift-title {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  color: #141210;
+  color: #191715;
   margin-bottom: 14px;
-  line-height: 1.4;
+  line-height: 1.45;
   letter-spacing: -0.02em;
 }
 
 /* 선정 이유 & 센스 포인트 */
 .gift-reason, .gift-sense {
   font-size: 0.94rem;
-  color: #453E35;
+  color: #474139;
   margin-bottom: 10px;
   line-height: 1.7;
   word-break: keep-all;
 }
 
 .gift-reason strong, .gift-sense strong {
-  color: #1A1714;
+  color: #1F1C18;
   font-weight: 700;
   margin-right: 4px;
 }
 
-/* 최저가 구매 링크 버튼 */
+/* 최저가 구매 링크 버튼 (고급스러운 다크 & 골드 호버) */
 .link-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin-top: 14px;
   padding: 10px 18px;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 700;
   color: #FFFFFF;
-  background-color: #292420;
+  background-color: #24201C;
   border-radius: 8px;
   transition: all 0.2s ease;
 }
 
 .link-btn:hover {
-  background-color: #D95338;
+  background-color: #8C7350; /* 샴페인 골드 변환 */
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(217, 83, 56, 0.25);
+  box-shadow: 0 4px 12px rgba(140, 115, 80, 0.25);
 }
 
-/* 실사용자 후기 요약 카드 (매거진 인용구 느낌) */
+/* 실사용자 후기 요약 카드 (차분한 아카이브 노트) */
 .review-card {
-  border-left: 5px solid #8C7866;
-  background-color: #F7F4EC;
-  border-color: #E6DFD1;
+  border-left: 4px solid #756D63;
+  background-color: #F6F3EC;
+  border-color: #E2DDD1;
 }
 .review-badge {
-  background-color: #ECE5D6;
-  color: #5E4E3F;
-  border: 1px solid #DDD3BE;
+  background-color: #EAE5D8;
+  color: #544D42;
+  border: 1px solid #D8D1C0;
 }
 .review-text {
   font-size: 0.94rem;
-  color: #3E362C;
+  color: #423C33;
   line-height: 1.75;
   word-break: keep-all;
 }
 
-/* 1초 완성 카드 문구 (고급 감성 엽서/편지지 느낌) */
+/* 1초 완성 카드 문구 (고급 레터 페이퍼) */
 .message-card {
-  background-color: #FFFEFC;
-  border: 1.5px dashed #D6CABA;
-  border-radius: 16px;
+  background-color: #FFFEFA;
+  border: 1px dashed #D3CBC0;
+  border-radius: 14px;
 }
 .message-badge {
-  background-color: #FBF4E8;
-  color: #9C6721;
-  border: 1px solid #EEDFBE;
+  background-color: #F5EFE4;
+  color: #7A633E;
+  border: 1px solid #E2D7C4;
 }
 .message-header {
   display: flex;
@@ -393,40 +395,41 @@ body {
 .text-copy-btn {
   padding: 5px 12px;
   font-size: 0.8rem;
+  font-weight: 600;
   border-radius: 6px;
-  background: #F4EFE6;
-  color: #544738;
-  border: 1px solid #E0D6C4;
+  background: #F1ECE1;
+  color: #4D4538;
+  border: 1px solid #DDD6C8;
 }
 .text-copy-btn:hover {
-  background: #E8E0D2;
+  background: #E5DFC0;
 }
 .message-text {
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 500;
-  color: #241F1A;
+  color: #24201B;
   line-height: 1.85;
   word-break: keep-all;
-  background: #FBF8F1;
+  background: #FBF8F2;
   padding: 18px 20px;
   border-radius: 10px;
-  border-left: 3px solid #D95338;
+  border-left: 3px solid #8C7350;
 }
 
-/* 팁 & 주의사항 카드 */
+/* 팁 & 주의사항 카드 (차분한 얼스톤) */
 .tip-card {
-  border-left: 5px solid #B87640;
-  background-color: #FCF9F2;
-  border-color: #EFE6D7;
+  border-left: 4px solid #997855;
+  background-color: #FAF7F0;
+  border-color: #E8E0D1;
 }
 .tip-badge {
-  background-color: #F6ECE0;
-  color: #8C4E1D;
-  border: 1px solid #EBD5BF;
+  background-color: #F1EAE0;
+  color: #6E5336;
+  border: 1px solid #DFD5C6;
 }
 .tip-text {
   font-size: 0.94rem;
-  color: #4A3A2A;
+  color: #473B2E;
   line-height: 1.75;
   word-break: keep-all;
 }
@@ -438,10 +441,10 @@ body {
   }
   .card {
     padding: 22px 18px;
-    border-radius: 16px;
+    border-radius: 14px;
   }
   .header h1 {
-    font-size: 1.7rem;
+    font-size: 1.65rem;
   }
   .result-header h2 {
     font-size: 1.15rem;
