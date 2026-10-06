@@ -1,9 +1,7 @@
 /* ========================================================
-   AI 센스만점 선물 추천기 - QUIET LUXURY & CALM ELEGANT THEME
-   이솝(Aēsop) & 르메르 감성의 차분하고 고급스러운 라이프스타일 큐레이션
+   THE GIFT CURATOR - HIGH-END LUXURY ARCHIVE THEME
+   보그, 르메르, 이솝 감성의 최고급 에디토리얼 타이포그래피 디자인
    ======================================================== */
-
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 * {
   box-sizing: border-box;
@@ -12,102 +10,114 @@
 }
 
 body {
-  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  background-color: #F6F4EE; /* 차분하고 편안한 오트밀 린넨톤 */
-  color: #262320;
+  font-family: "Gowun Batang", "Pretendard", -apple-system, serif;
+  background-color: #F7F5F0; /* 최고급 파치먼트 에크루 톤 */
+  color: #24211D;
   min-height: 100vh;
-  padding: 52px 20px 96px;
-  line-height: 1.75;
-  letter-spacing: -0.015em;
+  padding: 56px 20px 100px;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 580px;
   margin: 0 auto;
 }
 
-/* ----------------- 헤더 영역 (미니멀 럭셔리) ----------------- */
+/* ----------------- 브랜드 헤더 ----------------- */
 .header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 44px;
 }
 
-.header h1 {
-  font-size: 1.95rem;
-  font-weight: 700;
-  color: #191715;
-  letter-spacing: -0.03em;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+.brand-tag {
+  display: inline-block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #8A7252; /* 샴페인 브래스 골드 */
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.header h1.brand-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.7rem;
+  font-weight: 500;
+  color: #171513;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 12px;
 }
 
 .header .subtitle {
-  font-size: 0.95rem;
-  color: #7A7369;
+  font-size: 0.94rem;
+  color: #70695F;
   font-weight: 400;
   word-break: keep-all;
-  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
 }
 
-/* PWA 설치 버튼 & iOS 가이드 (차분한 톤) */
+/* PWA 설치 버튼 & iOS 가이드 */
 .install-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 4px;
-  padding: 8px 18px;
-  font-size: 0.84rem;
+  padding: 7px 18px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #5C4F3D;
+  letter-spacing: 0.04em;
+  color: #5C4F3F;
   background: #FFFFFF;
-  border: 1px solid #DCD5C8;
+  border: 1px solid #D8D1C4;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
 .install-btn:hover {
-  background: #F8F5EE;
-  border-color: #B39977;
-  color: #2D271E;
+  background: #FAF7F0;
+  border-color: #8A7252;
+  color: #1F1C18;
 }
 
 .ios-install-guide {
   margin-top: 14px;
   padding: 12px 18px;
-  background: #ECE8DD;
-  border: 1px solid #DFD9CB;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  color: #544D42;
+  background: #EFECE3;
+  border: 1px solid #DCD6C7;
+  border-radius: 10px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 0.84rem;
+  color: #4D4539;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.55;
   word-break: keep-all;
 }
 
 .ios-install-guide strong {
-  color: #1F1C18;
+  color: #1A1714;
   font-weight: 700;
 }
 
 /* ----------------- 카드 컴포넌트 ----------------- */
 .card {
   background: #FFFFFF;
-  border-radius: 16px;
-  padding: 32px 28px;
+  border-radius: 14px;
+  padding: 34px 30px;
   border: 1px solid #E5E0D5;
-  box-shadow: 0 4px 20px -2px rgba(25, 22, 19, 0.03), 0 1px 3px rgba(25, 22, 19, 0.02);
+  box-shadow: 0 4px 20px -2px rgba(25, 22, 19, 0.03);
   margin-bottom: 24px;
   transition: all 0.25s ease;
 }
 
 .form-card {
-  border-top: 3px solid #332E27; /* 묵직하고 클래식한 딥 차콜 탑 라인 */
+  border-top: 2px solid #1C1917;
 }
 
 /* ----------------- 입력 폼 요소 ----------------- */
@@ -117,9 +127,10 @@ body {
 
 .form-group label {
   display: block;
-  font-size: 0.88rem;
+  font-family: "Pretendard", sans-serif;
+  font-size: 0.86rem;
   font-weight: 700;
-  color: #38332C;
+  color: #38332B;
   margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
@@ -127,25 +138,25 @@ body {
 .form-group input {
   width: 100%;
   padding: 14px 16px;
-  font-size: 0.95rem;
-  font-family: inherit;
+  font-size: 0.94rem;
+  font-family: "Pretendard", sans-serif;
   color: #191715;
   background-color: #FAF8F4;
-  border: 1.5px solid #E2DCD0;
-  border-radius: 10px;
+  border: 1.5px solid #E0DAD0;
+  border-radius: 8px;
   outline: none;
   transition: all 0.2s ease;
 }
 
 .form-group input::placeholder {
-  color: #A69E93;
-  font-size: 0.9rem;
+  color: #A39B8F;
+  font-size: 0.88rem;
 }
 
 .form-group input:focus {
   background-color: #FFFFFF;
-  border-color: #8C7350; /* 은은한 샴페인 브래스 골드 */
-  box-shadow: 0 0 0 3px rgba(140, 115, 80, 0.12);
+  border-color: #8A7252;
+  box-shadow: 0 0 0 3px rgba(138, 114, 82, 0.12);
 }
 
 /* ----------------- 메인 버튼 ----------------- */
@@ -153,7 +164,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: inherit;
+  font-family: "Pretendard", sans-serif;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -164,20 +175,20 @@ body {
 .primary-btn {
   width: 100%;
   padding: 16px;
-  font-size: 1.02rem;
-  font-weight: 700;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   color: #FFFFFF;
-  background-color: #24201C; /* 차분하고 묵직한 럭셔리 매트 블랙 */
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(36, 32, 28, 0.2);
+  background-color: #1C1917; /* 럭셔리 매트 딥 옵시디언 */
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(28, 25, 23, 0.15);
   margin-top: 8px;
-  letter-spacing: -0.01em;
 }
 
 .primary-btn:hover {
-  background-color: #38332D;
+  background-color: #332F2B;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(36, 32, 28, 0.3);
+  box-shadow: 0 6px 18px rgba(28, 25, 23, 0.25);
 }
 
 .primary-btn:active {
@@ -195,29 +206,30 @@ body {
 .error-banner {
   margin-top: 16px;
   padding: 14px 18px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: #F7EFEF;
-  color: #8E3A3A;
-  font-size: 0.88rem;
+  color: #8A3838;
+  font-family: "Pretendard", sans-serif;
+  font-size: 0.86rem;
   font-weight: 600;
-  border: 1px solid #EAD4D4;
+  border: 1px solid #E8D3D3;
   text-align: center;
 }
 
-/* ----------------- 로딩 스피너 ----------------- */
+/* ----------------- 로딩 상태 ----------------- */
 .loading-container {
   text-align: center;
   padding: 50px 20px;
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   margin: 0 auto 18px;
-  border: 3px solid #E4DEC5;
-  border-top: 3px solid #8C7350; /* 골드 스피너 */
+  border: 2px solid #E2DCD1;
+  border-top: 2px solid #1C1917;
   border-radius: 50%;
-  animation: spin 0.9s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+  animation: spin 0.85s linear infinite;
 }
 
 @keyframes spin {
@@ -226,9 +238,9 @@ body {
 }
 
 .loading-text {
-  font-size: 0.94rem;
-  color: #665D52;
-  font-weight: 500;
+  font-size: 0.92rem;
+  color: #696257;
+  letter-spacing: -0.01em;
 }
 
 /* ----------------- 결과 영역 헤더 ----------------- */
@@ -245,31 +257,33 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 40px 4px 20px;
-  border-bottom: 1.5px solid #E2DCD1;
-  padding-bottom: 14px;
+  margin: 44px 4px 18px;
+  border-bottom: 1px solid #DFD9CE;
+  padding-bottom: 12px;
 }
 
 .result-header h2 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #191715;
-  letter-spacing: -0.02em;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #171513;
+  letter-spacing: 0.02em;
 }
 
 .copy-btn {
-  padding: 8px 14px;
-  font-size: 0.82rem;
+  padding: 6px 14px;
+  font-size: 0.78rem;
   font-weight: 600;
-  border-radius: 8px;
-  background: #EDE8DD;
-  color: #4D4539;
-  border: 1px solid #DDD6C7;
+  letter-spacing: 0.02em;
+  border-radius: 6px;
+  background: #EAE5DB;
+  color: #423B31;
+  border: 1px solid #D6CEC0;
 }
 
 .copy-btn:hover {
-  background: #E3DDD0;
-  color: #191715;
+  background: #DFD8CD;
+  color: #171513;
 }
 
 /* ----------------- 추천 카드 디테일 ----------------- */
@@ -278,44 +292,37 @@ body {
 }
 
 .card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: 6px;
+  display: inline-block;
+  font-family: "Cormorant Garamond", serif;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8A7252;
+  border-bottom: 1px solid #DFD5C4;
+  padding-bottom: 2px;
   margin-bottom: 14px;
 }
 
-/* 1위 카드: 샴페인 브론즈 골드 포인트 */
+/* 1위 카드: 은은한 샴페인 골드 라인 */
 .rank-1 {
-  border-left: 4px solid #A68555;
-  background-color: #FFFFFF;
-}
-.rank-1 .card-badge {
-  background-color: #F8F4EC;
-  color: #7D6136;
-  border: 1px solid #E6D8BE;
+  border-left: 3px solid #8A7252;
 }
 
-/* 2위 카드: 딥 포레스트 세이지 포인트 */
+/* 2위 카드: 딥 세이지 차콜 라인 */
 .rank-2 {
-  border-left: 4px solid #4F5E52;
-  background-color: #FFFFFF;
+  border-left: 3px solid #4D5950;
 }
 .rank-2 .card-badge {
-  background-color: #F0F4F1;
-  color: #3B4B3E;
-  border: 1px solid #D3E0D6;
+  color: #4D5950;
+  border-color: #CCD6CE;
 }
 
 /* 제품명 타이틀 */
 .gift-title {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #191715;
+  font-size: 1.32rem;
+  font-weight: 700;
+  color: #171513;
   margin-bottom: 14px;
   line-height: 1.45;
   letter-spacing: -0.02em;
@@ -323,68 +330,72 @@ body {
 
 /* 선정 이유 & 센스 포인트 */
 .gift-reason, .gift-sense {
-  font-size: 0.94rem;
-  color: #474139;
+  font-size: 0.92rem;
+  color: #423D35;
   margin-bottom: 10px;
-  line-height: 1.7;
+  line-height: 1.75;
   word-break: keep-all;
 }
 
 .gift-reason strong, .gift-sense strong {
-  color: #1F1C18;
+  display: inline-block;
+  font-family: "Pretendard", sans-serif;
+  font-size: 0.8rem;
   font-weight: 700;
-  margin-right: 4px;
+  letter-spacing: 0.02em;
+  color: #1C1917;
+  background: #F3EFE7;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 6px;
 }
 
-/* 최저가 구매 링크 버튼 (고급스러운 다크 & 골드 호버) */
+/* 최저가 구매 링크 버튼 */
 .link-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   margin-top: 14px;
-  padding: 10px 18px;
-  font-size: 0.86rem;
-  font-weight: 700;
+  padding: 9px 18px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   color: #FFFFFF;
-  background-color: #24201C;
-  border-radius: 8px;
+  background-color: #1C1917;
+  border-radius: 6px;
   transition: all 0.2s ease;
 }
 
 .link-btn:hover {
-  background-color: #8C7350; /* 샴페인 골드 변환 */
+  background-color: #8A7252;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(140, 115, 80, 0.25);
 }
 
-/* 실사용자 후기 요약 카드 (차분한 아카이브 노트) */
+/* 실사용자 리뷰 분석 카드 */
 .review-card {
-  border-left: 4px solid #756D63;
-  background-color: #F6F3EC;
-  border-color: #E2DDD1;
+  border-left: 3px solid #736B61;
+  background-color: #F8F6F2;
 }
-.review-badge {
-  background-color: #EAE5D8;
-  color: #544D42;
-  border: 1px solid #D8D1C0;
+.review-card .card-badge {
+  color: #635C52;
+  border-color: #D6CFBF;
 }
 .review-text {
-  font-size: 0.94rem;
-  color: #423C33;
-  line-height: 1.75;
+  font-size: 0.92rem;
+  color: #38332A;
+  line-height: 1.8;
   word-break: keep-all;
 }
 
-/* 1초 완성 카드 문구 (고급 레터 페이퍼) */
+/* 메시지 카드 */
 .message-card {
-  background-color: #FFFEFA;
-  border: 1px dashed #D3CBC0;
-  border-radius: 14px;
+  background-color: #FFFEFC;
+  border: 1px solid #D8D2C5;
+  border-radius: 12px;
 }
-.message-badge {
-  background-color: #F5EFE4;
-  color: #7A633E;
-  border: 1px solid #E2D7C4;
+.message-card .card-badge {
+  color: #7D6B51;
+  border-color: #DFD5C2;
 }
 .message-header {
   display: flex;
@@ -393,60 +404,58 @@ body {
   margin-bottom: 12px;
 }
 .text-copy-btn {
-  padding: 5px 12px;
-  font-size: 0.8rem;
+  padding: 4px 10px;
+  font-size: 0.76rem;
   font-weight: 600;
-  border-radius: 6px;
-  background: #F1ECE1;
-  color: #4D4538;
-  border: 1px solid #DDD6C8;
+  border-radius: 4px;
+  background: #EFEAE0;
+  color: #4A4235;
+  border: 1px solid #DBD4C5;
 }
 .text-copy-btn:hover {
-  background: #E5DFC0;
+  background: #E5DFD4;
 }
 .message-text {
-  font-size: 0.98rem;
+  font-size: 0.96rem;
   font-weight: 500;
   color: #24201B;
   line-height: 1.85;
   word-break: keep-all;
-  background: #FBF8F2;
+  background: #FAF7F0;
   padding: 18px 20px;
-  border-radius: 10px;
-  border-left: 3px solid #8C7350;
+  border-radius: 8px;
+  border-left: 2px solid #8A7252;
 }
 
-/* 팁 & 주의사항 카드 (차분한 얼스톤) */
+/* 큐레이터 가이드 카드 */
 .tip-card {
-  border-left: 4px solid #997855;
-  background-color: #FAF7F0;
-  border-color: #E8E0D1;
+  border-left: 3px solid #8C7863;
+  background-color: #FAF8F3;
 }
-.tip-badge {
-  background-color: #F1EAE0;
-  color: #6E5336;
-  border: 1px solid #DFD5C6;
+.tip-card .card-badge {
+  color: #705F4D;
+  border-color: #DDD4C5;
 }
 .tip-text {
-  font-size: 0.94rem;
-  color: #473B2E;
-  line-height: 1.75;
+  font-size: 0.92rem;
+  color: #3E362C;
+  line-height: 1.8;
   word-break: keep-all;
 }
 
 /* ----------------- 모바일 반응형 ----------------- */
 @media (max-width: 480px) {
   body {
-    padding: 24px 14px 60px;
+    padding: 24px 14px 64px;
   }
   .card {
-    padding: 22px 18px;
-    border-radius: 14px;
+    padding: 24px 20px;
+    border-radius: 12px;
   }
-  .header h1 {
-    font-size: 1.65rem;
+  .header h1.brand-title {
+    font-size: 2.2rem;
   }
   .result-header h2 {
-    font-size: 1.15rem;
+    font-size: 1.35rem;
   }
 }

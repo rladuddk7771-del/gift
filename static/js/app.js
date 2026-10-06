@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultContainer.style.display = 'none';
     loading.style.display = 'block';
     submitBtn.disabled = true;
-    submitBtn.textContent = '⏳ AI가 선물을 고르는 중...';
+    submitBtn.textContent = '큐레이션 분석 중...';
 
     try {
       const response = await fetch('/recommend', {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 추천 데이터 화면에 채우기
       const result = data.data;
-      gift1Name.textContent = result.gift1?.name || '추천 선물 1';
+      gift1Name.textContent = result.gift1?.name || '추천 아이템 01';
       gift1Reason.textContent = result.gift1?.reason || '';
       gift1Sense.textContent = result.gift1?.sense_point || '';
       if (result.gift1?.shopping_url) {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gift1Link.style.display = 'none';
       }
 
-      gift2Name.textContent = result.gift2?.name || '추천 선물 2';
+      gift2Name.textContent = result.gift2?.name || '추천 아이템 02';
       gift2Reason.textContent = result.gift2?.reason || '';
       gift2Sense.textContent = result.gift2?.sense_point || '';
       if (result.gift2?.shopping_url) {
@@ -101,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
     } finally {
       loading.style.display = 'none';
       submitBtn.disabled = false;
-      submitBtn.textContent = '✨ 센스있는 선물 추천받기';
+      submitBtn.textContent = '선물 큐레이션 분석';
     }
   });
 
   // 에러 메시지 표시/숨김 헬퍼 함수
   function showError(msg) {
-    errorMessage.textContent = `⚠️ ${msg}`;
+    errorMessage.textContent = msg;
     errorMessage.style.display = 'block';
   }
 
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       await navigator.clipboard.writeText(text);
       const originalText = copyMsgBtn.textContent;
-      copyMsgBtn.textContent = '복사됨! ✨';
+      copyMsgBtn.textContent = '복사 완료';
       setTimeout(() => {
         copyMsgBtn.textContent = originalText;
       }, 2000);
@@ -135,32 +135,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 전체 추천 결과 텍스트 복사 기능
   copyAllBtn.addEventListener('click', async () => {
-    const textToCopy = `[AI 센스만점 선물 추천 결과]
+    const textToCopy = `[ GIFT CURATION ARCHIVE ]
 
-🥇 추천 선물 1위: ${gift1Name.textContent}
-- 이유: ${gift1Reason.textContent}
-- 센스 포인트: ${gift1Sense.textContent}
-- 구매처/최저가: ${gift1Link.href}
+01. ${gift1Name.textContent}
+- 선정 배경: ${gift1Reason.textContent}
+- 큐레이터 포인트: ${gift1Sense.textContent}
+- 구매처: ${gift1Link.href}
 
-🥈 추천 선물 2위: ${gift2Name.textContent}
-- 이유: ${gift2Reason.textContent}
-- 센스 포인트: ${gift2Sense.textContent}
-- 구매처/최저가: ${gift2Link.href}
+02. ${gift2Name.textContent}
+- 선정 배경: ${gift2Reason.textContent}
+- 큐레이터 포인트: ${gift2Sense.textContent}
+- 구매처: ${gift2Link.href}
 
-📊 실사용자 후기 요약:
+[ 실사용자 리뷰 분석 ]
 ${reviewsSummary.textContent}
 
-💌 1초 완성 카드 문구:
+[ 메시지 카드 제안 ]
 ${cardMessage.textContent}
 
-📌 선물 팁 & 주의사항:
+[ 선물 가이드 & 유의사항 ]
 ${tipsContent.textContent}
 `;
 
     try {
       await navigator.clipboard.writeText(textToCopy);
       const originalText = copyAllBtn.textContent;
-      copyAllBtn.textContent = '✅ 전체 복사 완료!';
+      copyAllBtn.textContent = '복사 완료';
       setTimeout(() => {
         copyAllBtn.textContent = originalText;
       }, 2000);

@@ -3,26 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 센스만점 선물 추천기 (Gift Picker)</title>
+  <title>The Gift Curator | 프리미엄 맞춤 선물 큐레이션</title>
 
   <!-- PWA 매니페스트 및 모바일 메타 태그 -->
   <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#23201D">
+  <meta name="theme-color" content="#1C1A17">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="선물추천기">
+  <meta name="apple-mobile-web-app-title" content="GiftCurator">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192.png') }}">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.0">
+  <!-- 프리미엄 럭셔리 폰트: Cormorant Garamond & 고운 바탕 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=4.0">
 </head>
 <body>
   <div class="container">
     <header class="header">
-      <h1>🎁 AI 센스만점 선물 추천기</h1>
-      <p class="subtitle">상대방의 상황과 취향에 맞춘 실시간 리뷰 기반 최적의 선물 추천</p>
-      <button id="installPwaBtn" class="btn install-btn" style="display: none;">📲 앱으로 설치하기</button>
+      <span class="brand-tag">GIFT CURATION ARCHIVE</span>
+      <h1 class="brand-title">The Gift Curator</h1>
+      <p class="subtitle">상대방의 취향과 맥락을 깊이 고려한 맞춤형 선물 큐레이션</p>
+      <button id="installPwaBtn" class="btn install-btn" style="display: none;">앱으로 설치</button>
       <div id="iosInstallGuide" class="ios-install-guide" style="display: none;">
-        <p>📲 <strong>앱으로 설치하기</strong>: Safari 하단 <strong>공유 버튼(네모에 화살표 [↑])</strong> ➡️ <strong>[홈 화면에 추가]</strong>를 눌러주세요!</p>
+        <p>Safari 브라우저 하단의 <strong>[공유]</strong> 메뉴를 누른 후 <strong>[홈 화면에 추가]</strong>를 선택하세요.</p>
       </div>
     </header>
 
@@ -30,26 +36,26 @@
     <main class="card form-card">
       <form id="giftForm">
         <div class="form-group">
-          <label for="recipient">1. 받는 사람</label>
-          <input type="text" id="recipient" name="recipient" placeholder="예: 20대 대학생 친구, 자취하는 언니, 알바 사장님" required>
+          <label for="recipient">1. 받는 대상</label>
+          <input type="text" id="recipient" name="recipient" placeholder="예: 20대 대학생 친구, 독립한 지인, 직장 상사" required>
         </div>
 
         <div class="form-group">
           <label for="budget">2. 예산 범위</label>
-          <input type="text" id="budget" name="budget" placeholder="예: 1~2만 원대, 3~5만 원대, 10만 원 이하" required>
+          <input type="text" id="budget" name="budget" placeholder="예: 2~3만 원대, 5만 원 내외, 10만 원 미만" required>
         </div>
 
         <div class="form-group">
-          <label for="occasion">3. 선물 목적 / 상황</label>
-          <input type="text" id="occasion" name="occasion" placeholder="예: 생일, 집들이, 시험 응원, 퇴사 선물" required>
+          <label for="occasion">3. 선물 목적 및 상황</label>
+          <input type="text" id="occasion" name="occasion" placeholder="예: 생일 축하, 집들이, 승진 축하, 가벼운 감사" required>
         </div>
 
         <div class="form-group">
-          <label for="interests">4. 상대방 취향 / 특징</label>
-          <input type="text" id="interests" name="interests" placeholder="예: 귀여운 거 좋아함, 디저트 덕후, 실용적인 거 선호" required>
+          <label for="interests">4. 취향 및 라이프스타일</label>
+          <input type="text" id="interests" name="interests" placeholder="예: 미니멀한 인테리어 선호, 실용적인 소품, 커피 애호가" required>
         </div>
 
-        <button type="submit" id="submitBtn" class="btn primary-btn">✨ 센스있는 선물 추천받기</button>
+        <button type="submit" id="submitBtn" class="btn primary-btn">선물 큐레이션 분석</button>
       </form>
 
       <!-- 에러 메시지 알림 -->
@@ -59,44 +65,44 @@
     <!-- 로딩 스피너 영역 -->
     <div id="loading" class="loading-container" style="display: none;">
       <div class="spinner"></div>
-      <p class="loading-text">🔍 실시간 후기를 검색하고 AI가 가장 센스 있는 선물을 고르는 중입니다...</p>
+      <p class="loading-text">취향 데이터와 실사용자 평가를 정밀하게 분석하고 있습니다.</p>
     </div>
 
     <!-- 추천 결과 영역 -->
     <section id="resultContainer" class="result-container" style="display: none;">
       <div class="result-header">
-        <h2>🎉 AI 추천 결과가 도착했습니다!</h2>
-        <button id="copyAllBtn" class="btn copy-btn">📋 전체 결과 복사</button>
+        <h2>Curated Selection</h2>
+        <button id="copyAllBtn" class="btn copy-btn">결과 전체 복사</button>
       </div>
 
       <!-- 추천 1위 -->
       <div class="card result-card rank-1">
-        <div class="card-badge">🥇 추천 선물 1위</div>
+        <div class="card-badge">01 / BEST CHOICE</div>
         <h3 id="gift1Name" class="gift-title"></h3>
-        <p class="gift-reason"><strong>💡 선정 이유:</strong> <span id="gift1Reason"></span></p>
-        <p class="gift-sense"><strong>✨ 센스 포인트:</strong> <span id="gift1Sense"></span></p>
-        <a id="gift1Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">🛒 최저가 & 구매처 확인하기 ↗</a>
+        <p class="gift-reason"><strong>선정 배경</strong> <span id="gift1Reason"></span></p>
+        <p class="gift-sense"><strong>큐레이터 포인트</strong> <span id="gift1Sense"></span></p>
+        <a id="gift1Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">제품 확인 및 최저가 검색</a>
       </div>
 
       <!-- 추천 2위 -->
       <div class="card result-card rank-2">
-        <div class="card-badge">🥈 추천 선물 2위 (대안 아이템)</div>
+        <div class="card-badge">02 / ALTERNATIVE</div>
         <h3 id="gift2Name" class="gift-title"></h3>
-        <p class="gift-reason"><strong>💡 선정 이유:</strong> <span id="gift2Reason"></span></p>
-        <p class="gift-sense"><strong>✨ 센스 포인트:</strong> <span id="gift2Sense"></span></p>
-        <a id="gift2Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">🛒 최저가 & 구매처 확인하기 ↗</a>
+        <p class="gift-reason"><strong>선정 배경</strong> <span id="gift2Reason"></span></p>
+        <p class="gift-sense"><strong>큐레이터 포인트</strong> <span id="gift2Sense"></span></p>
+        <a id="gift2Link" class="btn link-btn" target="_blank" rel="noopener noreferrer" style="display: none;">제품 확인 및 최저가 검색</a>
       </div>
 
       <!-- 실사용자 후기 요약 -->
       <div class="card result-card review-card">
-        <div class="card-badge review-badge">📊 실사용자 후기 요약 (Serper 검색 기반)</div>
+        <div class="card-badge review-badge">REVIEW ANALYSIS</div>
         <p id="reviewsSummary" class="review-text"></p>
       </div>
 
       <!-- 1초 완성 카드 문구 -->
       <div class="card result-card message-card">
         <div class="message-header">
-          <div class="card-badge message-badge">💌 1초 완성 카드 문구</div>
+          <div class="card-badge message-badge">MESSAGE NOTE</div>
           <button id="copyMsgBtn" class="btn text-copy-btn">문구 복사</button>
         </div>
         <p id="cardMessage" class="message-text"></p>
@@ -104,12 +110,12 @@
 
       <!-- 선물 팁 및 주의사항 -->
       <div class="card result-card tip-card">
-        <div class="card-badge tip-badge">📌 선물 팁 & 주의사항</div>
+        <div class="card-badge tip-badge">CURATOR'S GUIDE</div>
         <p id="tipsContent" class="tip-text"></p>
       </div>
     </section>
   </div>
 
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v=4.0"></script>
 </body>
 </html>
